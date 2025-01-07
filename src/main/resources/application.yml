@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: NulNLP
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/nul_nlp
+    username: root
+    password: sty@20030209
