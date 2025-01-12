@@ -23,10 +23,10 @@ public class AccountController {
 
     @GetMapping("/login")
     public ResponseEntity<NulResult<Void>> login(
-            @RequestParam @NotNull String userName,
+            @RequestParam @NotNull String username,
             @RequestParam @NotNull String password
     ) {
-        final NulJwtToken token = accountControllerService.login(userName, password);
+        final NulJwtToken token = accountControllerService.login(username, password);
         final HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, NulConstants.BEARER_TOKEN_PREFIX + token.token());
         return ResponseEntity.ok().headers(headers).body(NulResult.response());

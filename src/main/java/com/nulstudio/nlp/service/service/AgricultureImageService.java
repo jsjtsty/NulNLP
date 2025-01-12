@@ -1,4 +1,4 @@
-package com.nulstudio.nlp.service.controller;
+package com.nulstudio.nlp.service.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

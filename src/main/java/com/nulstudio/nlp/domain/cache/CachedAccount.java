@@ -3,10 +3,8 @@ package com.nulstudio.nlp.domain.cache;
 import com.nulstudio.nlp.entity.NulAccount;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
-
 public class CachedAccount implements NulCachedEntity<NulAccount> {
-    private long id;
+    private Long id;
     private String username;
     private String name;
     private String password;
@@ -66,11 +64,11 @@ public class CachedAccount implements NulCachedEntity<NulAccount> {
         this.username = username;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

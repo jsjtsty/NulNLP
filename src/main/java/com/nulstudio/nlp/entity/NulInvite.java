@@ -24,7 +24,7 @@ public class NulInvite {
     @Column(name = "remaining", nullable = false)
     private Integer remaining;
 
-    @Column(name = "roleId", nullable = false)
+    @Column(name = "role_id", nullable = false)
     private Integer role;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
@@ -39,6 +39,16 @@ public class NulInvite {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
+
+    @PrePersist
+    public void prePersist() {
+        if (creationTime == null) {
+            creationTime = new Timestamp(System.currentTimeMillis());
+        }
+        if (status == null) {
+            status = Status.Normal;
+        }
+    }
 
     public Long getId() {
         return id;

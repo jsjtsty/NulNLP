@@ -17,7 +17,7 @@ public class InviteRepositoryService {
     @Resource
     private InviteRepository inviteRepository;
 
-    @Cacheable(value = "invite", key = "#inviteCode")
+    @Cacheable(value = "invite", key = "#inviteCode", unless = "#result == null")
     @NotNull
     public Optional<CachedInvite> findInvite(@NotNull String inviteCode) {
         final Optional<NulInvite> optional = inviteRepository.findByInviteCode(inviteCode);

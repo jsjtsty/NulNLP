@@ -21,16 +21,16 @@ public class AccountRepositoryService {
     @Resource
     private CacheManager cacheManager;
 
-    @Cacheable(value = "account", key = "#uid")
+    @Cacheable(value = "account", key = "#uid", unless = "#result == null")
     @NotNull
     public Optional<CachedAccount> getAccountByUid(long uid) {
         final Optional<NulAccount> optional = accountRepository.findById(uid);
         return optional.map(CachedAccount::new);
     }
 
-    @Cacheable(value = "username", key = "#username")
+    @Cacheable(value = "username", key = "#username", unless = "#result == null")
     @NotNull
-    public Optional<Long> getUidByUsername(@NotNull String username) {
+    public Optional<Number> getUidByUsername(@NotNull String username) {
         final Optional<NulAccount> optional = accountRepository.findByUsername(username);
         return optional.map(NulAccount::getId);
     }

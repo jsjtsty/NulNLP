@@ -28,9 +28,10 @@ public class AccountService implements UserDetailsService {
     @Resource
     private InviteService inviteService;
 
-    public long login(@NotNull String userName, @NotNull String password) {
-        final Long uid = accountRepositoryService.getUidByUsername(userName)
-                .orElseThrow(() -> new NulException(NulExceptionConstants.USER_NOT_EXIST));
+    public long login(@NotNull String username, @NotNull String password) {
+        final long uid = accountRepositoryService.getUidByUsername(username)
+                .orElseThrow(() -> new NulException(NulExceptionConstants.USER_NOT_EXIST))
+                .longValue();
         final CachedAccount account = accountRepositoryService.getAccountByUid(uid)
                 .orElseThrow(() -> new NulException(NulExceptionConstants.USER_NOT_EXIST));
         final CachedRole role = authorityService.getRoleById(account.getRoleId());
@@ -74,7 +75,8 @@ public class AccountService implements UserDetailsService {
 
     public long getUidByUserName(@NotNull String userName) {
         return accountRepositoryService.getUidByUsername(userName)
-                .orElseThrow(() -> new NulException(NulExceptionConstants.USER_NOT_EXIST));
+                .orElseThrow(() -> new NulException(NulExceptionConstants.USER_NOT_EXIST))
+                .longValue();
     }
 
     @Override

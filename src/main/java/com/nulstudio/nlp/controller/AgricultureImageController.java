@@ -5,7 +5,7 @@ import com.nulstudio.nlp.common.NulConstants;
 import com.nulstudio.nlp.common.NulResult;
 import com.nulstudio.nlp.domain.dto.AgricultureImageDto;
 import com.nulstudio.nlp.entity.NulAgricultureImage;
-import com.nulstudio.nlp.service.controller.AgricultureImageService;
+import com.nulstudio.nlp.service.service.AgricultureImageService;
 import com.nulstudio.nlp.util.NulDataUtil;
 import jakarta.annotation.Resource;
 import org.springframework.http.ResponseEntity;

@@ -49,8 +49,8 @@ public class AccountControllerService {
     }
 
     @NotNull
-    public NulJwtToken login(@NotNull String userName, @NotNull String password) {
-        final long uid = accountService.login(userName, password);
+    public NulJwtToken login(@NotNull String username, @NotNull String password) {
+        final long uid = accountService.login(username, password);
         return NulJwtToken.generate(new NulJwtToken.NulJwtTokenProperties(uid));
     }
 

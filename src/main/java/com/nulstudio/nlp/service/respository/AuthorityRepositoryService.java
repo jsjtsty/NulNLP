@@ -16,7 +16,7 @@ public class AuthorityRepositoryService {
     @Resource
     private RoleRepository roleRepository;
 
-    @Cacheable(value = "role", key = "#id")
+    @Cacheable(value = "role", key = "#id", unless = "#result == null")
     @Transactional
     public Optional<CachedRole> findByRoleId(int id) {
         final Optional<NulRole> optional = roleRepository.findById(id);

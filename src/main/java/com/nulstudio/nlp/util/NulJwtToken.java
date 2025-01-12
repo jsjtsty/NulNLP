@@ -29,7 +29,7 @@ public record NulJwtToken(@NonNull String token) implements Comparable<NulJwtTok
     /**
      * Key for JWT Secret in environment variables.
      */
-    private static final String JWT_SECRET_ENV_KEY = "NUL_DORM_SECRET";
+    private static final String JWT_SECRET_ENV_KEY = "NUL_NLP_SECRET";
 
     /**
      * Valid time of token (7d).
