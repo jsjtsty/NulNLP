@@ -40,12 +40,13 @@ public class AccountRepositoryService {
         final NulAccount result = accountRepository.save(account.restore());
         final Cache accountCache = cacheManager.getCache("account"),
                 userNameCache = cacheManager.getCache("username");
+        final CachedAccount cachedAccount = new CachedAccount(result);
         if (accountCache != null) {
-            accountCache.put(result.getId(), result);
+            accountCache.put(result.getId(), cachedAccount);
         }
         if (userNameCache != null) {
             userNameCache.put(result.getUsername(), account.getId());
         }
-        return new CachedAccount(result);
+        return cachedAccount;
     }
 }

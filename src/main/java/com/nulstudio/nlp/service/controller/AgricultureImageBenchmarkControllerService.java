@@ -37,7 +37,7 @@ public class AgricultureImageBenchmarkControllerService {
     @NotNull
     public String exportJson() throws JsonProcessingException {
         final CachedAccount account = NulSecurityConfig.getContextAccount();
-        final List<AgricultureImageBenchmarkVo> data = benchmarkService.findAll(account.getId());
+        final List<AgricultureImageBenchmarkVo> data = benchmarkService.findAllByUid(account.getId());
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(data);
     }

@@ -22,14 +22,12 @@ public class AccountController {
     private AccountControllerService accountControllerService;
 
     @GetMapping("/login")
-    public ResponseEntity<NulResult<Void>> login(
+    public NulResult<String> login(
             @RequestParam @NotNull String username,
             @RequestParam @NotNull String password
     ) {
         final NulJwtToken token = accountControllerService.login(username, password);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.AUTHORIZATION, NulConstants.BEARER_TOKEN_PREFIX + token.token());
-        return ResponseEntity.ok().headers(headers).body(NulResult.response());
+        return NulResult.response(NulConstants.BEARER_TOKEN_PREFIX + token.token());
     }
 
     @DeleteMapping("/login")

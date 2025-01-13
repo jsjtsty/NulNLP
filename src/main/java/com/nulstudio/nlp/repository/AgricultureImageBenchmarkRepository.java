@@ -5,9 +5,12 @@ import com.nulstudio.nlp.entity.NulAgricultureImageBenchmark;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface AgricultureImageBenchmarkRepository extends JpaRepository<NulAgricultureImageBenchmark, Long> {
     Optional<CachedAgricultureImageBenchmark> findByUidAndEntryId(Long uid, Long entryId);
+
+    List<NulAgricultureImageBenchmark> findAllByUid(Long uid);
 }

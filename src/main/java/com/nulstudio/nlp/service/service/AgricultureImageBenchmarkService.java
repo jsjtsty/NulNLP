@@ -53,9 +53,9 @@ public class AgricultureImageBenchmarkService {
     }
 
     @NotNull
-    public List<AgricultureImageBenchmarkVo> findAll(long uid) {
+    public List<AgricultureImageBenchmarkVo> findAllByUid(long uid) {
         final List<NulAgricultureImageBenchmarkDocument> documents = documentRepositoryService.findAll();
-        final List<CachedAgricultureImageBenchmark> benchmarks = repositoryService.findAll();
+        final List<CachedAgricultureImageBenchmark> benchmarks = repositoryService.findAllByUid(uid);
         final Map<Long, CachedAgricultureImageBenchmark> benchmarkMap = new HashMap<>(benchmarks.size());
         for (final CachedAgricultureImageBenchmark benchmark : benchmarks) {
             benchmarkMap.put(benchmark.getEntryId(), benchmark);

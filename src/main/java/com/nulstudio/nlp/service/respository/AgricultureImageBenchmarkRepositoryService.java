@@ -30,7 +30,7 @@ public class AgricultureImageBenchmarkRepositoryService {
         return repository.findByUidAndEntryId(uid, id);
     }
 
-    @CachePut(value = "agriculture_image_benchmark", key = "#benchmark.uid + ':' + #benchmark.id")
+    @CachePut(value = "agriculture_image_benchmark", key = "#benchmark.uid + ':' + #benchmark.entryId")
     @Transactional
     public CachedAgricultureImageBenchmark save(@NotNull CachedAgricultureImageBenchmark benchmark) {
         if (benchmark.getId() == null) {
@@ -44,9 +44,9 @@ public class AgricultureImageBenchmarkRepositoryService {
     }
 
     @NotNull
-    public List<CachedAgricultureImageBenchmark> findAll() {
+    public List<CachedAgricultureImageBenchmark> findAllByUid(long uid) {
         final List<CachedAgricultureImageBenchmark> result = new ArrayList<>();
-        final List<NulAgricultureImageBenchmark> queryResult = repository.findAll();
+        final List<NulAgricultureImageBenchmark> queryResult = repository.findAllByUid(uid);
         for (final NulAgricultureImageBenchmark benchmark : queryResult) {
             result.add(new CachedAgricultureImageBenchmark(benchmark));
         }
