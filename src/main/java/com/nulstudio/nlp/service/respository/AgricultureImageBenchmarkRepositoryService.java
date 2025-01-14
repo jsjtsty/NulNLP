@@ -25,12 +25,12 @@ public class AgricultureImageBenchmarkRepositoryService {
     @Lazy
     private AgricultureImageBenchmarkRepositoryService repositoryService;
 
-    @Cacheable(value = "agriculture_image_benchmark", key = "#uid + ':' + #id", unless = "#result == null")
+    //@Cacheable(value = "agriculture_image_benchmark", key = "#uid + ':' + #id", unless = "#result.isEmpty()")
     public Optional<CachedAgricultureImageBenchmark> find(long uid, long id) {
         return repository.findByUidAndEntryId(uid, id);
     }
 
-    @CachePut(value = "agriculture_image_benchmark", key = "#benchmark.uid + ':' + #benchmark.entryId")
+    //@CachePut(value = "agriculture_image_benchmark", key = "#benchmark.uid + ':' + #benchmark.entryId")
     @Transactional
     public CachedAgricultureImageBenchmark save(@NotNull CachedAgricultureImageBenchmark benchmark) {
         if (benchmark.getId() == null) {

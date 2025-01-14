@@ -21,14 +21,14 @@ public class AccountRepositoryService {
     @Resource
     private CacheManager cacheManager;
 
-    @Cacheable(value = "account", key = "#uid", unless = "#result == null")
+    //@Cacheable(value = "account", key = "#uid", unless = "#result.isEmpty()")
     @NotNull
     public Optional<CachedAccount> getAccountByUid(long uid) {
         final Optional<NulAccount> optional = accountRepository.findById(uid);
         return optional.map(CachedAccount::new);
     }
 
-    @Cacheable(value = "username", key = "#username", unless = "#result == null")
+    //@Cacheable(value = "username", key = "#username", unless = "#result.isEmpty()")
     @NotNull
     public Optional<Number> getUidByUsername(@NotNull String username) {
         final Optional<NulAccount> optional = accountRepository.findByUsername(username);
@@ -38,15 +38,15 @@ public class AccountRepositoryService {
     @NotNull
     public CachedAccount saveAccount(@NotNull CachedAccount account) {
         final NulAccount result = accountRepository.save(account.restore());
-        final Cache accountCache = cacheManager.getCache("account"),
-                userNameCache = cacheManager.getCache("username");
+        //final Cache accountCache = cacheManager.getCache("account"),
+        //        userNameCache = cacheManager.getCache("username");
         final CachedAccount cachedAccount = new CachedAccount(result);
-        if (accountCache != null) {
-            accountCache.put(result.getId(), cachedAccount);
-        }
-        if (userNameCache != null) {
-            userNameCache.put(result.getUsername(), account.getId());
-        }
+        //if (accountCache != null) {
+        //    accountCache.put(result.getId(), cachedAccount);
+        //}
+        //if (userNameCache != null) {
+        //    userNameCache.put(result.getUsername(), account.getId());
+        //}
         return cachedAccount;
     }
 }
