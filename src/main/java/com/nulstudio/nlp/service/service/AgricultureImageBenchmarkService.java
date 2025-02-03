@@ -3,7 +3,9 @@ package com.nulstudio.nlp.service.service;
 import com.nulstudio.nlp.domain.cache.CachedAgricultureImageBenchmark;
 import com.nulstudio.nlp.domain.dto.AgricultureImageBenchmarkDto;
 import com.nulstudio.nlp.domain.vo.AgricultureImageBenchmarkVo;
+import com.nulstudio.nlp.domain.vo.CategoryVo;
 import com.nulstudio.nlp.entity.NulAgricultureImageBenchmarkDocument;
+import com.nulstudio.nlp.entity.NulCategory;
 import com.nulstudio.nlp.exception.NulException;
 import com.nulstudio.nlp.exception.NulExceptionConstants;
 import com.nulstudio.nlp.service.respository.AgricultureImageBenchmarkDocumentRepositoryService;
@@ -22,26 +24,37 @@ public class AgricultureImageBenchmarkService {
     @Resource
     private AgricultureImageBenchmarkRepositoryService repositoryService;
 
-    public long getCount() {
-        return documentRepositoryService.getCount();
+    @Resource
+    private CategoryService categoryService;
+
+    public long getCount(long category) {
+        return documentRepositoryService.getCount(category);
     }
 
     @NotNull
-    public AgricultureImageBenchmarkVo getBenchmark(long uid, long id) {
-        final NulAgricultureImageBenchmarkDocument document = documentRepositoryService.findById(id)
+    public List<CategoryVo> getCategories() {
+        return categoryService.getCategoryList(NulCategory.NAMESPACE_IMAGE_BENCHMARK);
+    }
+
+    @NotNull
+    public AgricultureImageBenchmarkVo find(long uid, long category, long id) {
+        final NulAgricultureImageBenchmarkDocument document = documentRepositoryService.find(category, id)
                 .orElseThrow(() -> new NulException(NulExceptionConstants.DOCUMENT_NOT_EXIST));
-        final Optional<CachedAgricultureImageBenchmark> benchmark = repositoryService.find(uid, id);
+        final Optional<CachedAgricultureImageBenchmark> benchmark = repositoryService.find(uid, category, id);
         return benchmark.map(entry -> new AgricultureImageBenchmarkVo(document, entry))
                 .orElse(new AgricultureImageBenchmarkVo(document));
     }
 
-    public void updateBenchmark(long uid, long id, @NotNull AgricultureImageBenchmarkDto benchmark) {
-        if (!documentRepositoryService.existsById(id)) {
+    public void update(
+            long uid, long category, long id, @NotNull AgricultureImageBenchmarkDto benchmark
+    ) {
+        if (!documentRepositoryService.exists(category, id)) {
             throw new NulException(NulExceptionConstants.DOCUMENT_NOT_EXIST);
         }
 
         final CachedAgricultureImageBenchmark cached = new CachedAgricultureImageBenchmark();
         cached.setUid(uid);
+        cached.setCategory(category);
         cached.setEntryId(id);
         cached.setAnswer(benchmark.answer());
         cached.setLogic(benchmark.logic());
@@ -53,9 +66,9 @@ public class AgricultureImageBenchmarkService {
     }
 
     @NotNull
-    public List<AgricultureImageBenchmarkVo> findAllByUid(long uid) {
-        final List<NulAgricultureImageBenchmarkDocument> documents = documentRepositoryService.findAll();
-        final List<CachedAgricultureImageBenchmark> benchmarks = repositoryService.findAllByUid(uid);
+    public List<AgricultureImageBenchmarkVo> findAll(long uid, long category) {
+        final List<NulAgricultureImageBenchmarkDocument> documents = documentRepositoryService.findAll(category);
+        final List<CachedAgricultureImageBenchmark> benchmarks = repositoryService.findAll(uid, category);
         final Map<Long, CachedAgricultureImageBenchmark> benchmarkMap = new HashMap<>(benchmarks.size());
         for (final CachedAgricultureImageBenchmark benchmark : benchmarks) {
             benchmarkMap.put(benchmark.getEntryId(), benchmark);

@@ -1,6 +1,5 @@
 package com.nulstudio.nlp.entity;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -8,8 +7,11 @@ import java.util.List;
 
 @Document(value = "nul_agriculture_image_benchmark")
 public class NulAgricultureImageBenchmarkDocument {
-    @Id
+    @Field(value = "id")
     public Long id;
+
+    @Field(value = "category")
+    public Long category;
 
     @Field(value = "answer")
     public Integer answer;
@@ -44,19 +46,14 @@ public class NulAgricultureImageBenchmarkDocument {
     @Field(value = "question")
     public String question;
 
+    @Field(value = "question_id")
+    public String questionId;
+
     @Field(value = "solving_logic")
     public List<String> solvingLogic;
 
     @Field(value = "uuid")
     public String uuid;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Integer getAnswer() {
         return answer;
@@ -146,6 +143,14 @@ public class NulAgricultureImageBenchmarkDocument {
         this.question = question;
     }
 
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+
     public List<String> getSolvingLogic() {
         return solvingLogic;
     }
@@ -160,6 +165,22 @@ public class NulAgricultureImageBenchmarkDocument {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCategory() {
+        return category;
+    }
+
+    public void setCategory(Long category) {
+        this.category = category;
     }
 
 }

@@ -6,8 +6,6 @@ import com.nulstudio.nlp.repository.AgricultureImageBenchmarkRepository;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +24,9 @@ public class AgricultureImageBenchmarkRepositoryService {
     private AgricultureImageBenchmarkRepositoryService repositoryService;
 
     //@Cacheable(value = "agriculture_image_benchmark", key = "#uid + ':' + #id", unless = "#result.isEmpty()")
-    public Optional<CachedAgricultureImageBenchmark> find(long uid, long id) {
-        return repository.findByUidAndEntryId(uid, id);
+    public Optional<CachedAgricultureImageBenchmark> find(long uid, long category, long id) {
+        return repository.findByUidAndCategoryAndEntryId(uid, category, id)
+                .map(CachedAgricultureImageBenchmark::new);
     }
 
     //@CachePut(value = "agriculture_image_benchmark", key = "#benchmark.uid + ':' + #benchmark.entryId")
@@ -35,7 +34,7 @@ public class AgricultureImageBenchmarkRepositoryService {
     public CachedAgricultureImageBenchmark save(@NotNull CachedAgricultureImageBenchmark benchmark) {
         if (benchmark.getId() == null) {
             final Optional<CachedAgricultureImageBenchmark> existing =
-                    repositoryService.find(benchmark.getUid(), benchmark.getEntryId());
+                    repositoryService.find(benchmark.getUid(), benchmark.getCategory(), benchmark.getEntryId());
             existing.ifPresent(cachedAgricultureImageBenchmark ->
                     benchmark.setId(cachedAgricultureImageBenchmark.getId()));
         }
@@ -44,12 +43,9 @@ public class AgricultureImageBenchmarkRepositoryService {
     }
 
     @NotNull
-    public List<CachedAgricultureImageBenchmark> findAllByUid(long uid) {
-        final List<CachedAgricultureImageBenchmark> result = new ArrayList<>();
-        final List<NulAgricultureImageBenchmark> queryResult = repository.findAllByUid(uid);
-        for (final NulAgricultureImageBenchmark benchmark : queryResult) {
-            result.add(new CachedAgricultureImageBenchmark(benchmark));
-        }
-        return result;
+    public List<CachedAgricultureImageBenchmark> findAll(long uid, long category) {
+        return repository.findAllByUidAndCategory(uid, category).stream()
+                .map(CachedAgricultureImageBenchmark::new)
+                .toList();
     }
 }

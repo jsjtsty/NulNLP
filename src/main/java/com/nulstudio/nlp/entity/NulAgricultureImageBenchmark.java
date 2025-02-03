@@ -17,10 +17,10 @@ public class NulAgricultureImageBenchmark {
     private Long entryId;
 
     @Column(name = "question")
-    private Boolean question;
+    private String question;
 
     @Column(name = "options")
-    private Boolean options;
+    private String options;
 
     @Column(name = "logic")
     private Boolean logic;
@@ -30,6 +30,17 @@ public class NulAgricultureImageBenchmark {
 
     @Column(name = "answer")
     private Boolean answer;
+
+    @Column(name = "category", nullable = false)
+    private Long category;
+
+    public Long getCategory() {
+        return category;
+    }
+
+    public void setCategory(Long category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -55,19 +66,19 @@ public class NulAgricultureImageBenchmark {
         this.entryId = entryId;
     }
 
-    public Boolean getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(Boolean question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public Boolean getOptions() {
+    public String getOptions() {
         return options;
     }
 
-    public void setOptions(Boolean options) {
+    public void setOptions(String options) {
         this.options = options;
     }
 

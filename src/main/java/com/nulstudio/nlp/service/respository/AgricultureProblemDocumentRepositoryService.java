@@ -1,7 +1,7 @@
 package com.nulstudio.nlp.service.respository;
 
-import com.nulstudio.nlp.entity.NulAgricultureImageBenchmarkDocument;
-import com.nulstudio.nlp.repository.AgricultureImageBenchmarkDocumentRepository;
+import com.nulstudio.nlp.entity.NulAgricultureProblemDocument;
+import com.nulstudio.nlp.repository.AgricultureProblemDocumentRepository;
 import jakarta.annotation.Resource;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -10,18 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AgricultureImageBenchmarkDocumentRepositoryService {
+public class AgricultureProblemDocumentRepositoryService {
 
     @Resource
-    private AgricultureImageBenchmarkDocumentRepository repository;
+    private AgricultureProblemDocumentRepository repository;
 
     @NotNull
-    public Optional<NulAgricultureImageBenchmarkDocument> find(long category, long id) {
+    public Optional<NulAgricultureProblemDocument> find(long category, long id) {
         return repository.findByCategoryAndId(category, id);
     }
 
     @NotNull
-    public List<NulAgricultureImageBenchmarkDocument> findAll(long category) {
+    public List<NulAgricultureProblemDocument> findAll(long category) {
         return repository.findAllByCategory(category);
     }
 

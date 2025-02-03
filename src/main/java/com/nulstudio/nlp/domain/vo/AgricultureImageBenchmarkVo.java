@@ -7,8 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class AgricultureImageBenchmarkVo {
     private NulAgricultureImageBenchmarkDocument document;
-    private Boolean question;
-    private Boolean options;
+    private String question;
+    private String options;
     private Boolean logic;
     private Boolean optionAnalysis;
     private Boolean answer;
@@ -30,19 +30,19 @@ public final class AgricultureImageBenchmarkVo {
         this.answer = benchmark.getAnswer();
     }
 
-    public Boolean getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(Boolean question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public Boolean getOptions() {
+    public String getOptions() {
         return options;
     }
 
-    public void setOptions(Boolean options) {
+    public void setOptions(String options) {
         this.options = options;
     }
 

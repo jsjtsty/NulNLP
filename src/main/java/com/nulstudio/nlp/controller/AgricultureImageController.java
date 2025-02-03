@@ -36,6 +36,6 @@ public class AgricultureImageController {
 
     @GetMapping("/export")
     public ResponseEntity<byte[]> export() throws JsonProcessingException {
-        return NulDataUtil.outputJson(imageService.exportJson(), NulConstants.JSON_AGRICULTURE_IMAGE_PREFIX);
+        return NulDataUtil.outputCompressedJson(imageService.exportJson(), NulConstants.JSON_AGRICULTURE_IMAGE_PREFIX);
     }
 }

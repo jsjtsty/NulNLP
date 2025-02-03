@@ -6,9 +6,10 @@ import org.jetbrains.annotations.NotNull;
 public class CachedAgricultureImageBenchmark implements NulCachedEntity<NulAgricultureImageBenchmark> {
     private Long id;
     private long uid;
+    private long category;
     private long entryId;
-    private Boolean question;
-    private Boolean options;
+    private String question;
+    private String options;
     private Boolean logic;
     private Boolean optionAnalysis;
     private Boolean answer;
@@ -18,6 +19,7 @@ public class CachedAgricultureImageBenchmark implements NulCachedEntity<NulAgric
     public CachedAgricultureImageBenchmark(@NotNull NulAgricultureImageBenchmark entity) {
         this.id = entity.getId();
         this.uid = entity.getUid();
+        this.category = entity.getCategory();
         this.entryId = entity.getEntryId();
         this.question = entity.getQuestion();
         this.options = entity.getOptions();
@@ -33,6 +35,7 @@ public class CachedAgricultureImageBenchmark implements NulCachedEntity<NulAgric
         final NulAgricultureImageBenchmark benchmark = new NulAgricultureImageBenchmark();
         benchmark.setId(id);
         benchmark.setUid(uid);
+        benchmark.setCategory(category);
         benchmark.setEntryId(entryId);
         benchmark.setQuestion(question);
         benchmark.setOptions(options);
@@ -66,19 +69,19 @@ public class CachedAgricultureImageBenchmark implements NulCachedEntity<NulAgric
         this.entryId = entryId;
     }
 
-    public Boolean getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(Boolean question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public Boolean getOptions() {
+    public String getOptions() {
         return options;
     }
 
-    public void setOptions(Boolean options) {
+    public void setOptions(String options) {
         this.options = options;
     }
 
@@ -104,5 +107,13 @@ public class CachedAgricultureImageBenchmark implements NulCachedEntity<NulAgric
 
     public void setAnswer(Boolean answer) {
         this.answer = answer;
+    }
+
+    public long getCategory() {
+        return category;
+    }
+
+    public void setCategory(long category) {
+        this.category = category;
     }
 }

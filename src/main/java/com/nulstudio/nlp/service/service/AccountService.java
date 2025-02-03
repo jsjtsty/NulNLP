@@ -10,6 +10,8 @@ import com.nulstudio.nlp.util.NulValidator;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService implements UserDetailsService {
+    private final Logger log = LoggerFactory.getLogger(AccountService.class);
+
     @Resource
     private AccountRepositoryService accountRepositoryService;
 
@@ -40,6 +44,7 @@ public class AccountService implements UserDetailsService {
         if (!encoder.matches(password, account.getPassword())) {
             throw new NulException(NulExceptionConstants.WRONG_PASSWORD);
         }
+        log.info("User {} login success.", username);
         return account.getId();
     }
 
