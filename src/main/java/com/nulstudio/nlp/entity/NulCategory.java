@@ -10,6 +10,8 @@ public class NulCategory {
 
     public static final String NAMESPACE_PROBLEM = "problem";
 
+    public static final String NAMESPACE_IMAGE_PROBLEM = "image_problem";
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

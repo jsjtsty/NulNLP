@@ -31,13 +31,11 @@ public class AgricultureProblemService {
         return documentRepositoryService.getCount(category);
     }
 
-    @NotNull
-    public List<CategoryVo> getCategories() {
+    public @NotNull List<CategoryVo> getCategories() {
         return categoryService.getCategoryList(NulCategory.NAMESPACE_PROBLEM);
     }
 
-    @NotNull
-    public AgricultureProblemVo find(long uid, long category, long id) {
+    public @NotNull AgricultureProblemVo find(long uid, long category, long id) {
         final NulAgricultureProblemDocument document = documentRepositoryService.find(category, id)
                 .orElseThrow(() -> new NulException(NulExceptionConstants.DOCUMENT_NOT_EXIST));
         final Optional<CachedAgricultureProblem> problem = repositoryService.find(uid, category, id);
@@ -62,8 +60,7 @@ public class AgricultureProblemService {
         repositoryService.save(cached);
     }
 
-    @NotNull
-    public List<AgricultureProblemVo> findAll(long uid, long category) {
+    public @NotNull List<AgricultureProblemVo> findAll(long uid, long category) {
         final List<NulAgricultureProblemDocument> documents = documentRepositoryService.findAll(category);
         final List<CachedAgricultureProblem> problems = repositoryService.findAll(uid, category);
         final Map<Long, CachedAgricultureProblem> problemMap = new HashMap<>();

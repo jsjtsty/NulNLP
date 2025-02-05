@@ -29,8 +29,7 @@ public class AgricultureProblemRepositoryService {
     }
 
     @Transactional
-    @NotNull
-    public CachedAgricultureProblem save(@NotNull CachedAgricultureProblem problem) {
+    public @NotNull CachedAgricultureProblem save(@NotNull CachedAgricultureProblem problem) {
         if (problem.getObjectId() == null) {
             final Optional<CachedAgricultureProblem> existing =
                     repositoryService.find(problem.getUid(), problem.getCategory(), problem.getId());
