@@ -1,10 +1,15 @@
 package com.nulstudio.nlp.repository;
 
 import com.nulstudio.nlp.entity.NulInvite;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface InviteRepository extends JpaRepository<NulInvite, Long> {
+@Repository
+public interface InviteRepository extends MongoRepository<NulInvite, ObjectId> {
     Optional<NulInvite> findByInviteCode(String inviteCode);
+
+    boolean existsByInviteCode(String inviteCode);
 }

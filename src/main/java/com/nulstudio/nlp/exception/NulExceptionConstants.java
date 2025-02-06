@@ -1,5 +1,7 @@
 package com.nulstudio.nlp.exception;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 
 /**
@@ -8,12 +10,12 @@ import org.springframework.lang.NonNull;
  * @since 2.0
  */
 public enum NulExceptionConstants {
-    INVALID_TOKEN(1, "Invalid Token"),
+    INVALID_TOKEN(1, "Invalid Token", HttpStatus.UNAUTHORIZED),
     INTERNAL_SERVER_ERROR(500, "Internal server error"),
     INVALID_EMAIL(1001, "Invalid email"),
     INVALID_PHONE(1002, "Invalid phone"),
     INVALID_MONEY(1003, "Invalid money syntax"),
-    JWT_SECRET_MISSING(10002, "JWT Secret Missing"),
+    JWT_SECRET_MISSING(10002, "JWT Secret Missing", HttpStatus.UNAUTHORIZED),
     ROLE_NOT_EXIST(10003, "Role does not exist"),
     USER_NOT_EXIST(10004, "User does not exist"),
     WRONG_PASSWORD(10005, "Wrong password"),
@@ -37,8 +39,14 @@ public enum NulExceptionConstants {
     /**
      * Error message, cannot be null.
      */
-    @NonNull
+    @NotNull
     private final String message;
+
+    /**
+     * HTTP status, cannot be null.
+     */
+    @NotNull
+    private final HttpStatus httpStatus;
 
     /**
      * Inner initializer for this enumeration.
@@ -48,6 +56,19 @@ public enum NulExceptionConstants {
     NulExceptionConstants(int code, @NonNull String message) {
         this.code = code;
         this.message = message;
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    /**
+     * Inner initializer for this enumeration with HTTP code.
+     * @param code error code
+     * @param message error message, must not be null
+     * @param httpStatus HTTP status code
+     */
+    NulExceptionConstants(int code, @NotNull String message, @NotNull HttpStatus httpStatus) {
+        this.code = code;
+        this.message = message;
+        this.httpStatus = httpStatus;
     }
 
     /**
@@ -62,8 +83,15 @@ public enum NulExceptionConstants {
      * Get error message.
      * @return error message, not null.
      */
-    @NonNull
-    public String getMessage() {
+    public @NotNull String getMessage() {
         return message;
+    }
+
+    /**
+     * Get HTTP status code.
+     * @return HTTP status code
+     */
+    public @NotNull HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 }

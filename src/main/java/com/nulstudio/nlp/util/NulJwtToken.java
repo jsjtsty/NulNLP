@@ -7,6 +7,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nulstudio.nlp.exception.NulJwtSecretException;
+import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -34,14 +36,14 @@ public record NulJwtToken(@NonNull String token) implements Comparable<NulJwtTok
     /**
      * Valid time of token (7d).
      */
-    private static final long JWT_VALID_TIME = 7 * 24 * 3600 * 1000;
+    public static final long JWT_VALID_TIME = 7 * 24 * 3600 * 1000;
 
     /**
      * Properties for JWT Token.
      * @param uid ID of the user
      */
     public record NulJwtTokenProperties(
-            long uid
+            @NotNull ObjectId uid
     ) {
 
     }
@@ -60,7 +62,9 @@ public record NulJwtToken(@NonNull String token) implements Comparable<NulJwtTok
         } catch (JWTVerificationException exception) {
             return null;
         }
-        final int uid = decodedJWT.getClaim(RegisteredClaims.SUBJECT).asInt();
+        final ObjectId uid = new ObjectId(
+                decodedJWT.getClaim(RegisteredClaims.SUBJECT).asString()
+        );
         return new NulJwtTokenProperties(uid);
     }
 
@@ -74,7 +78,7 @@ public record NulJwtToken(@NonNull String token) implements Comparable<NulJwtTok
         final Algorithm algorithm = Algorithm.HMAC256(getJwtSecret());
         final Date expireTime = new Date(System.currentTimeMillis() + JWT_VALID_TIME);
         final String token = JWT.create().withExpiresAt(expireTime)
-                .withClaim(RegisteredClaims.SUBJECT, properties.uid)
+                .withClaim(RegisteredClaims.SUBJECT, properties.uid.toString())
                 .sign(algorithm);
         return new NulJwtToken(token);
     }

@@ -1,9 +1,8 @@
 package com.nulstudio.nlp.config;
 
-import com.nulstudio.nlp.domain.cache.CachedAccount;
-import com.nulstudio.nlp.domain.cache.CachedRole;
-import com.nulstudio.nlp.service.service.AccountService;
-import com.nulstudio.nlp.service.service.AuthorityService;
+import com.nulstudio.nlp.entity.NulAccount;
+import com.nulstudio.nlp.entity.NulRole;
+import com.nulstudio.nlp.service.AccountService;
 import com.nulstudio.nlp.util.NulJwtToken;
 import com.nulstudio.nlp.util.NulSpringUtil;
 import com.nulstudio.nlp.util.NulValidator;
@@ -42,9 +41,6 @@ public final class NulJwtTokenFilter extends OncePerRequestFilter {
     @Resource
     private AccountService accountService;
 
-    @Resource
-    private AuthorityService authorityService;
-
 
     private void checkJwtToken(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) {
         // 1. Get authentication information from HTTP Header.
@@ -62,8 +58,8 @@ public final class NulJwtTokenFilter extends OncePerRequestFilter {
             return;
 
         // 4. Query user information and set context.
-        final CachedAccount account = accountService.getAccountByUid(properties.uid());
-        final CachedRole role = authorityService.getRoleById(account.getRoleId());
+        final NulAccount account = accountService.findAccountById(properties.uid());
+        final NulRole role = accountService.findRoleById(account.getRoleId());
         NulValidator.validate(role);
 
         final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

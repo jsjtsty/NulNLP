@@ -1,41 +1,33 @@
 package com.nulstudio.nlp.entity;
 
-import jakarta.persistence.*;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "nul_account")
+@Document("nul_account")
 public class NulAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "uid", nullable = false)
-    private Long id;
+    public ObjectId id;
 
-    @Column(name = "username", nullable = false, length = 256)
-    private String username;
+    @Field(value = "name")
+    public String name;
 
-    @Column(name = "name", nullable = false, length = 256)
-    private String name;
+    @Field(value = "password")
+    public String password;
 
-    @Column(name = "password", nullable = false, length = 60)
-    private String password;
+    @Field(value = "roleId")
+    public ObjectId roleId;
 
-    @Column(name = "role_id", nullable = false)
-    private Integer roleId;
+    @Field(value = "username")
+    public String username;
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getName() {
@@ -54,12 +46,19 @@ public class NulAccount {
         this.password = password;
     }
 
-    public Integer getRoleId() {
+    public ObjectId getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(ObjectId roleId) {
         this.roleId = roleId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

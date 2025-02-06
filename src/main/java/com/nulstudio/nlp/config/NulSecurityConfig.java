@@ -1,7 +1,7 @@
 package com.nulstudio.nlp.config;
 
-import com.nulstudio.nlp.domain.cache.CachedAccount;
-import com.nulstudio.nlp.service.service.AccountService;
+import com.nulstudio.nlp.entity.NulAccount;
+import com.nulstudio.nlp.service.AccountService;
 import jakarta.annotation.Resource;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
@@ -107,7 +107,7 @@ public class NulSecurityConfig {
      * @return user detail of current user
      */
     @NotNull
-    public static CachedAccount getContextAccount() {
-        return (CachedAccount) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public static NulAccount getContextAccount() {
+        return (NulAccount) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

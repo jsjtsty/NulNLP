@@ -1,57 +1,49 @@
 package com.nulstudio.nlp.entity;
 
-import jakarta.persistence.*;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "nul_category")
+@Document(value = "nul_category")
 public class NulCategory {
-
-    public static final String NAMESPACE_IMAGE_BENCHMARK = "image_benchmark";
-
-    public static final String NAMESPACE_PROBLEM = "problem";
-
-    public static final String NAMESPACE_IMAGE_PROBLEM = "image_problem";
-
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    public ObjectId id;
 
-    @Lob
-    @Column(name = "namespace", nullable = false)
-    private String namespace;
+    @Field(value = "category_id")
+    public String categoryId;
 
-    @Column(name = "category_id", nullable = false)
-    private Long categoryId;
+    @Field(value = "description")
+    public String description;
 
-    @Column(name = "name", nullable = false, length = 256)
-    private String name;
+    @Field(value = "name")
+    public String name;
 
-    @Lob
-    @Column(name = "description")
-    private String description;
+    @Field(value = "namespace")
+    public String namespace;
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
-    public Long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -62,12 +54,12 @@ public class NulCategory {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getNamespace() {
+        return namespace;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
 }

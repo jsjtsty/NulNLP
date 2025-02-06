@@ -1,22 +1,26 @@
 package com.nulstudio.nlp.domain.vo;
 
-import java.sql.Timestamp;
+import com.nulstudio.nlp.entity.NulInvite;
+import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
+
+import java.time.Instant;
 
 public final class InviteVo {
     private String inviteCode;
     private int remaining;
-    private Timestamp expireTime;
-    private String status;
-    private int roleId;
+    private Instant expireTime;
+    private Integer status;
+    private ObjectId roleId;
 
     public InviteVo() {}
 
-    public InviteVo(String inviteCode, int remaining, Timestamp expireTime, String status, int roleId) {
-        this.inviteCode = inviteCode;
-        this.remaining = remaining;
-        this.expireTime = expireTime;
-        this.status = status;
-        this.roleId = roleId;
+    public InviteVo(@NotNull NulInvite invite) {
+        inviteCode = invite.getInviteCode();
+        remaining = invite.getRemaining();
+        expireTime = invite.getExpireTime();
+        status = invite.getStatus();
+        roleId = invite.getRoleId();
     }
 
     public String getInviteCode() {
@@ -35,27 +39,27 @@ public final class InviteVo {
         this.remaining = remaining;
     }
 
-    public Timestamp getExpireTime() {
+    public Instant getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Timestamp expireTime) {
+    public void setExpireTime(Instant expireTime) {
         this.expireTime = expireTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getRoleId() {
+    public ObjectId getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(ObjectId roleId) {
         this.roleId = roleId;
     }
 }

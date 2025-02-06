@@ -1,61 +1,57 @@
 package com.nulstudio.nlp.entity;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
-@Entity
-@Table(name = "nul_invite")
+@Document("nul_invite")
 public class NulInvite {
-    public enum Status {
-        Normal, Blocked
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    public String id;
 
-    @Column(name = "invite_code", nullable = false, length = 6)
-    private String inviteCode;
+    @Field(value = "creation_time")
+    public Instant creationTime;
 
-    @ColumnDefault("1")
-    @Column(name = "remaining", nullable = false)
-    private Integer remaining;
+    @Field(value = "expire_time")
+    public Instant expireTime;
 
-    @Column(name = "role_id", nullable = false)
-    private Integer role;
+    @Field(value = "invite_code")
+    public String inviteCode;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "creation_time", nullable = false)
-    private Timestamp creationTime;
+    @Field(value = "remaining")
+    public Integer remaining;
 
-    @Column(name = "expire_time", nullable = false)
-    private Timestamp expireTime;
+    @Field(value = "role_id")
+    public ObjectId roleId;
 
-    @ColumnDefault("'Normal'")
-    @Lob
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Field(value = "status")
+    public Integer status;
 
-    @PrePersist
-    public void prePersist() {
-        if (creationTime == null) {
-            creationTime = new Timestamp(System.currentTimeMillis());
-        }
-        if (status == null) {
-            status = Status.Normal;
-        }
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public Instant getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Instant creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Instant getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Instant expireTime) {
+        this.expireTime = expireTime;
     }
 
     public String getInviteCode() {
@@ -74,36 +70,19 @@ public class NulInvite {
         this.remaining = remaining;
     }
 
-    public Integer getRole() {
-        return role;
+    public ObjectId getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setRoleId(ObjectId roleId) {
+        this.roleId = roleId;
     }
 
-    public Timestamp getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Timestamp creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public Timestamp getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(Timestamp expireTime) {
-        this.expireTime = expireTime;
-    }
-
-    public Status getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
-
 }

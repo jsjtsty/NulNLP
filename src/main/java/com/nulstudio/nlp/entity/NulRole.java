@@ -1,74 +1,34 @@
 package com.nulstudio.nlp.entity;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-@Entity
-@Table(name = "nul_role")
+@Document("nul_role")
 public class NulRole {
-
-    public enum Status {
-        Normal, Blocked
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    public String id;
 
-    @Column(name = "name", nullable = false, length = 64)
-    private String name;
+    @Field(value = "comment")
+    public String comment;
 
-    @ColumnDefault("'Normal'")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Field(value = "name")
+    public String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "nul_role_permission",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
-    )
-    private Set<NulPermission> permissions = new HashSet<>();
+    @Field(value = "permissions")
+    public List<String> permissions;
 
-    @Lob
-    @Column(name = "comment")
-    private String comment;
+    @Field(value = "status")
+    public Integer status;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Set<NulPermission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<NulPermission> permissions) {
-        this.permissions = permissions;
     }
 
     public String getComment() {
@@ -79,4 +39,27 @@ public class NulRole {
         this.comment = comment;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
