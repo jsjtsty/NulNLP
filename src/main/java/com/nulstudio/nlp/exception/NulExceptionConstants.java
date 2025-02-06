@@ -28,7 +28,10 @@ public enum NulExceptionConstants {
     INVALID_GENDER(10012, "Invalid gender"),
     INVALID_EXPIRE_DATE(10013, "Invalid expire date"),
 
-    DOCUMENT_NOT_EXIST(11001, "Document not exist"),
+    DOCUMENT_NOT_EXIST(11001, "Document not exist", HttpStatus.NOT_FOUND),
+    DOCUMENT_SCHEMA_NOT_EXIST(11002, "Document schema not exist", HttpStatus.NOT_FOUND),
+    DOCUMENT_SCHEMA_INVALID(11003, "Document schema is invalid", HttpStatus.BAD_REQUEST),
+    ANNOTATION_WRONG_SYNTAX(11004, "Annotation wrong syntax", HttpStatus.BAD_REQUEST)
     ;
 
     /**
