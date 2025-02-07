@@ -2,13 +2,14 @@ package com.nulstudio.nlp.entity;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(value = "nul_category")
 public class NulCategory {
     @Id
     public ObjectId id;
+
+    @Field(value = "name")
+    public String name;
 
     @Field(value = "category_id")
     public String categoryId;
@@ -16,11 +17,13 @@ public class NulCategory {
     @Field(value = "description")
     public String description;
 
-    @Field(value = "name")
-    public String name;
+    public String getName() {
+        return name;
+    }
 
-    @Field(value = "namespace")
-    public String namespace;
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public ObjectId getId() {
         return id;
@@ -28,14 +31,6 @@ public class NulCategory {
 
     public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getDescription() {
@@ -46,20 +41,11 @@ public class NulCategory {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
 }

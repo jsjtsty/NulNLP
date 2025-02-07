@@ -15,7 +15,6 @@ public final class CategoryVo {
     public CategoryVo(@Nullable NulCategory category) {
         if (category == null) return;
         id = category.getId();
-        categoryId = category.getCategoryId();
         name = category.getName();
         description = category.getDescription();
     }
@@ -51,4 +50,5 @@ public final class CategoryVo {
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
 }
