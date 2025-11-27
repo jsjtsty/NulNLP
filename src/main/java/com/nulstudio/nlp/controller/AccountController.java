@@ -21,7 +21,7 @@ public class AccountController {
     @Resource
     private AccountControllerService accountControllerService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public NulResult<String> login(
             @RequestParam @NotNull String username,
             @RequestParam @NotNull String password
